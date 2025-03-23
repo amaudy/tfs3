@@ -1,6 +1,7 @@
 # AWS S3 Bucket Terraform Module
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-amaudy/tfs3-blue?style=flat&logo=github)](https://github.com/amaudy/tfs3)
+[![Terraform Module Tests](https://github.com/amaudy/tfs3/actions/workflows/terraform-tests.yml/badge.svg)](https://github.com/amaudy/tfs3/actions/workflows/terraform-tests.yml)
 
 This Terraform module creates an AWS S3 bucket with security best practices applied by default and configurable options for:
 
@@ -174,3 +175,15 @@ This module includes automated tests using Terratest. To run the tests:
 3. Run the tests: `go test -v`
 
 The tests will create real AWS resources, so make sure you have appropriate AWS credentials and permissions.
+
+## Continuous Integration
+
+This module uses GitHub Actions for continuous integration tests:
+
+1. **Terraform Validate**: Validates the Terraform configuration and checks the formatting
+2. **Checkov Security Scan**: Runs security checks against the Terraform code
+3. **Terratest Unit Tests**: Executes the Terratest unit tests
+
+For the unit tests to run in your own fork, you'll need to set the following secrets in your GitHub repository:
+- `AWS_ACCESS_KEY_ID`: Your AWS access key with permissions to create S3 buckets
+- `AWS_SECRET_ACCESS_KEY`: Your AWS secret access key
