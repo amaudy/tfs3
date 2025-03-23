@@ -1,4 +1,4 @@
-module github.com/yourusername/tfs3/test
+module github.com/amaudy/tfs3/test
 
 go 1.18
 

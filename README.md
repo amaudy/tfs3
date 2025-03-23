@@ -1,5 +1,7 @@
 # AWS S3 Bucket Terraform Module
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-amaudy/tfs3-blue?style=flat&logo=github)](https://github.com/amaudy/tfs3)
+
 This Terraform module creates an AWS S3 bucket with security best practices applied by default and configurable options for:
 
 - Versioning (enabled by default)
@@ -14,7 +16,7 @@ This Terraform module creates an AWS S3 bucket with security best practices appl
 
 ```hcl
 module "s3_bucket" {
-  source = "git::https://github.com/yourusername/tfs3.git"
+  source = "git::https://github.com/amaudy/tfs3.git"
 
   bucket_name = "my-unique-bucket-name"
   versioning  = true
@@ -77,7 +79,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "git::https://github.com/yourusername/tfs3.git"
+  source = "git::https://github.com/amaudy/tfs3.git"
 
   bucket_name = "my-unique-bucket-name"
 }
@@ -87,7 +89,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "git::https://github.com/yourusername/tfs3.git"
+  source = "git::https://github.com/amaudy/tfs3.git"
 
   bucket_name   = "my-unique-bucket-name"
   kms_key_arn   = "arn:aws:kms:us-east-1:1234567890:key/abcd1234-1234-1234-1234-1234abcd1234"
@@ -102,7 +104,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "git::https://github.com/yourusername/tfs3.git"
+  source = "git::https://github.com/amaudy/tfs3.git"
 
   bucket_name = "my-unique-bucket-name"
   
@@ -125,7 +127,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "git::https://github.com/yourusername/tfs3.git"
+  source = "git::https://github.com/amaudy/tfs3.git"
 
   bucket_name = "my-unique-bucket-name"
   
@@ -149,7 +151,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "git::https://github.com/yourusername/tfs3.git"
+  source = "git::https://github.com/amaudy/tfs3.git"
 
   bucket_name = "my-unique-bucket-name"
   
