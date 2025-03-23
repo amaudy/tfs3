@@ -34,7 +34,7 @@ resource "aws_s3_bucket_public_access_block" "this" {
   restrict_public_buckets = var.restrict_public_buckets
 }
 
-# Add S3 bucket lifecycle configuration, always including abort_incomplete_multipart_upload
+# Add S3 bucket lifecycle configuration, always including abort_incomplete_multipart_upload and version management
 resource "aws_s3_bucket_lifecycle_configuration" "this" {
   bucket = aws_s3_bucket.this.id
 
@@ -45,6 +45,27 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
 
     abort_incomplete_multipart_upload {
       days_after_initiation = 7
+    }
+  }
+
+  # Add versioning lifecycle rule if versioning is enabled
+  dynamic "rule" {
+    for_each = var.versioning ? [1] : []
+    content {
+      id     = "versioning-lifecycle-rule"
+      status = "Enabled"
+
+      noncurrent_version_expiration {
+        noncurrent_days = var.noncurrent_version_expiration
+      }
+
+      dynamic "noncurrent_version_transition" {
+        for_each = var.noncurrent_version_transitions
+        content {
+          noncurrent_days = noncurrent_version_transition.value.days
+          storage_class   = noncurrent_version_transition.value.storage_class
+        }
+      }
     }
   }
 

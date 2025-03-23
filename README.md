@@ -43,6 +43,8 @@ module "s3_bucket" {
 | bucket_name | Name of the S3 bucket | `string` | n/a | yes |
 | force_destroy | Whether to force destroy the bucket even if it contains objects | `bool` | `false` | no |
 | versioning | Enable versioning for the S3 bucket | `bool` | `true` | no |
+| noncurrent_version_expiration | Number of days to keep noncurrent versions before deletion | `number` | `90` | no |
+| noncurrent_version_transitions | List of transition configurations for noncurrent versions | `list(object)` | See below | no |
 | sse_algorithm | Server-side encryption algorithm to use | `string` | `"aws:kms"` | no |
 | kms_key_arn | ARN of the KMS key to use for S3 bucket encryption | `string` | `null` | no |
 | block_public_acls | Whether Amazon S3 should block public ACLs for this bucket | `bool` | `true` | no |
@@ -73,6 +75,22 @@ module "s3_bucket" {
 | notifications_configured | Whether event notifications are configured for the bucket |
 | versioning_enabled | Whether versioning is enabled for the bucket |
 | encryption_type | Type of encryption configured for the bucket |
+
+### Default Version Management
+
+By default, the module includes the following version management settings when versioning is enabled:
+
+```hcl
+noncurrent_version_transitions = [
+  {
+    days          = 30
+    storage_class = "STANDARD_IA"
+  }
+]
+noncurrent_version_expiration = 90  # Expires noncurrent versions after 90 days
+```
+
+This moves noncurrent versions to the STANDARD_IA storage class after 30 days and deletes them after 90 days.
 
 ## Examples
 
@@ -163,6 +181,28 @@ module "s3_bucket" {
     role          = "arn:aws:iam::1234567890:role/my-replication-role"
     storage_class = "STANDARD_IA"
   }
+}
+```
+
+### S3 Bucket with Custom Version Lifecycle
+
+```hcl
+module "s3_bucket" {
+  source = "git::https://github.com/amaudy/tfs3.git"
+
+  bucket_name = "my-unique-bucket-name"
+  versioning  = true
+  
+  # Keep only the last 10 versions by deleting older versions after 30 days
+  noncurrent_version_expiration = 30
+  
+  # Move older versions to Glacier after 7 days to save costs
+  noncurrent_version_transitions = [
+    {
+      days          = 7
+      storage_class = "GLACIER"
+    }
+  ]
 }
 ```
 

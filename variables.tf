@@ -15,6 +15,26 @@ variable "versioning" {
   default     = true
 }
 
+variable "noncurrent_version_expiration" {
+  description = "Number of days to keep noncurrent versions before deletion (if versioning is enabled)"
+  type        = number
+  default     = 90
+}
+
+variable "noncurrent_version_transitions" {
+  description = "List of transition configurations for noncurrent versions"
+  type = list(object({
+    days          = number
+    storage_class = string
+  }))
+  default = [
+    {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+  ]
+}
+
 variable "sse_algorithm" {
   description = "Server-side encryption algorithm to use. Valid values are AES256 and aws:kms"
   type        = string
