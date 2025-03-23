@@ -75,3 +75,13 @@ module "s3_bucket" {
   }
 }
 ```
+
+## Testing
+
+This module includes automated tests using Terratest. To run the tests:
+
+1. Navigate to the test directory: `cd test`
+2. Install dependencies: `go mod tidy`
+3. Run the tests: `go test -v`
+
+The tests will create real AWS resources, so make sure you have appropriate AWS credentials and permissions.
