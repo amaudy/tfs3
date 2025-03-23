@@ -7,7 +7,7 @@ module "s3_bucket" {
 
   bucket_name = "my-example-bucket-name-${random_string.random.result}"
   versioning  = true
-  
+
   tags = {
     Environment = "Test"
     Project     = "Example"
