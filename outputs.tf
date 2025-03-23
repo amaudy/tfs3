@@ -20,7 +20,7 @@ output "bucket_regional_domain_name" {
 
 output "lifecycle_configuration_rules" {
   description = "Map of lifecycle rules applied to the bucket"
-  value       = try(aws_s3_bucket_lifecycle_configuration.this[0].rule, null)
+  value       = try(aws_s3_bucket_lifecycle_configuration.this.rule, null)
 }
 
 output "access_logging_enabled" {
