@@ -54,6 +54,7 @@ jobs:
     name: "Terratest Unit Tests"
     runs-on: ubuntu-latest
     needs: [terraform-validate]
+    environment: dev
     
     steps:
       - name: Checkout repository
